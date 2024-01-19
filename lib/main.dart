@@ -8,7 +8,7 @@ import 'package:test_drive/views/login_view.dart';
 import 'package:test_drive/views/register_view.dart';
 // import 'dart:developer' as devtools show log;
 
-// Chapter 15 -- NEXT
+// Chapter 20 -- NEXT
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,8 @@ void main() {
     home: const HomePage(),
     routes: {
       '/login/': (context) => const LoginView(),
-      '/register/': (context) => const RegisterView()
+      '/register/': (context) => const RegisterView(),
+      '/notes/': (context) => const NotesView()
     },
   ));
 }
