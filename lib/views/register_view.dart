@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:test_drive/firebase_options.dart';
 import 'package:test_drive/helpers/snackbar_global.dart';
 
 class RegisterView extends StatefulWidget {
@@ -32,76 +30,69 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')), // AppBar
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _email,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                          hintText: 'Enter your email ...'),
-                    ),
-                    TextField(
-                      controller: _password,
-                      obscureText: true,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      keyboardType: TextInputType.visiblePassword,
-                      decoration: const InputDecoration(
-                          hintText: 'Enter your password ...'),
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          final email = _email.text;
-                          final password = _password.text;
+      appBar: AppBar(title: const Text('Sign Up')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _email,
+              enableSuggestions: false,
+              autocorrect: false,
+              keyboardType: TextInputType.emailAddress,
+              decoration:
+                  const InputDecoration(hintText: 'Enter your email ...'),
+            ),
+            TextField(
+              controller: _password,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              keyboardType: TextInputType.visiblePassword,
+              decoration:
+                  const InputDecoration(hintText: 'Enter your password ...'),
+            ),
+            TextButton(
+                onPressed: () async {
+                  final email = _email.text;
+                  final password = _password.text;
 
-                          try {
-                            final userCredential = await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                                    email: email, password: password);
+                  try {
+                    final userCredential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: email, password: password);
 
-                            print(userCredential);
-                          } on FirebaseAuthException catch (e) {
-                            String errorMessage = 'An error occurred';
+                    print(userCredential);
+                  } on FirebaseAuthException catch (e) {
+                    String errorMessage = 'An error occurred';
 
-                            switch (e.code) {
-                              case 'invalid-email':
-                                errorMessage =
-                                    'Invalid email format. Please enter a valid email address.';
-                                break;
-                              case 'weak-password':
-                                errorMessage =
-                                    'The password provided is too weak.';
-                                break;
-                              case 'email-already-in-use':
-                                errorMessage =
-                                    'The account already exists for that email.';
-                                break;
-                            }
+                    switch (e.code) {
+                      case 'invalid-email':
+                        errorMessage =
+                            'Invalid email format. Please enter a valid email address.';
+                        break;
+                      case 'weak-password':
+                        errorMessage = 'The password provided is too weak.';
+                        break;
+                      case 'email-already-in-use':
+                        errorMessage =
+                            'The account already exists for that email.';
+                        break;
+                    }
 
-                            SnackbarGlobal.show(errorMessage);
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        child: const Text('Register')),
-                  ],
-                ),
-              );
-            default:
-              return const Text('Loading...');
-          }
-        },
+                    SnackbarGlobal.show(errorMessage);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: const Text('Register')),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login/');
+                },
+                child: const Text('Already registered? Login here!'))
+          ],
+        ),
       ),
     );
   }
