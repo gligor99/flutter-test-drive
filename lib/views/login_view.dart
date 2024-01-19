@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:test_drive/constants/routes.dart';
 import 'package:test_drive/helpers/snackbar_global.dart';
 
 class LoginView extends StatefulWidget {
@@ -62,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
 
                     // ignore: use_build_context_synchronously
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/notes/', (_) => false);
+                        .pushNamedAndRemoveUntil(notesRoute, (_) => false);
                   } on FirebaseAuthException catch (e) {
                     String errorMessage = 'An error occurred';
 
@@ -86,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
                 child: const Text('Login')),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/register/');
+                  Navigator.pushNamed(context, registerRoute);
                 },
                 child: const Text('Not registered yet? Register here!'))
           ],

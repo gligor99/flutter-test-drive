@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:test_drive/constants/routes.dart';
 import 'package:test_drive/helpers/snackbar_global.dart';
 
 class RegisterView extends StatefulWidget {
@@ -85,7 +86,7 @@ class _RegisterViewState extends State<RegisterView> {
                 child: const Text('Register')),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login/');
+                  Navigator.pushNamed(context, loginRoute);
                 },
                 child: const Text('Already registered? Login here!'))
           ],
