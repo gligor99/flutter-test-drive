@@ -57,10 +57,8 @@ class _LoginViewState extends State<LoginView> {
                   final password = _password.text;
 
                   try {
-                    final userCredential = await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: email, password: password);
-                    print(userCredential);
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: email, password: password);
                   } on FirebaseAuthException catch (e) {
                     String errorMessage = 'An error occurred';
 
@@ -78,7 +76,7 @@ class _LoginViewState extends State<LoginView> {
 
                     SnackbarGlobal.show(errorMessage);
                   } catch (e) {
-                    print(e);
+                    SnackbarGlobal.show(e.toString());
                   }
                 },
                 child: const Text('Login')),

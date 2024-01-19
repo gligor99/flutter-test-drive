@@ -58,11 +58,8 @@ class _RegisterViewState extends State<RegisterView> {
                   final password = _password.text;
 
                   try {
-                    final userCredential = await FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                            email: email, password: password);
-
-                    print(userCredential);
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: email, password: password);
                   } on FirebaseAuthException catch (e) {
                     String errorMessage = 'An error occurred';
 
@@ -82,7 +79,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                     SnackbarGlobal.show(errorMessage);
                   } catch (e) {
-                    print(e);
+                    SnackbarGlobal.show(e.toString());
                   }
                 },
                 child: const Text('Register')),
